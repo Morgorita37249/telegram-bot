@@ -15,7 +15,9 @@ public class DataBase {
     public Map<Long, HashMap<String,String>> UsersData = new HashMap<>();
     // Singleton
     private static DataBase instance;
-    private DataBase(){}
+    private DataBase(){
+
+    }
     public static DataBase GetInstance(){
         if (instance == null) {
             instance = new DataBase();
@@ -49,6 +51,8 @@ public class DataBase {
         UsersData.put(UserID,UserData);
     }
 
-    public void uploadData(){}
+    public void uploadData(){
+
+    }
     public void downloadData(){}
 }

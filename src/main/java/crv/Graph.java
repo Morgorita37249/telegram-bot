@@ -1,9 +1,6 @@
 package crv;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 // Класс - хранилище карты ориентиров
 public class Graph {
@@ -91,14 +88,14 @@ public class Graph {
 			}
 		}
 	}
-		
+
 	return "Путь не найден";
     }
-	
+
     public String reconstructPath(Map<WayPoint, WayPoint> parentMap, WayPoint start, WayPoint end) {
 	LinkedList<WayPoint> path = new LinkedList<>();
 	WayPoint current = end;
-        
+
 	while (current != null) {
 		path.addFirst(current);
 		current = parentMap.get(current);
@@ -108,7 +105,7 @@ public class Graph {
 	for (WayPoint point : path) {
 		result.append(point.name).append(" -> ");
 	}
-	result.delete(result.length() - 4, result.length()); 
+	result.delete(result.length() - 4, result.length());
 
 	return result.toString();
     }
@@ -125,6 +122,5 @@ public class Graph {
         connectWayPoints("id502","id503");
     }
 }
-
 
 

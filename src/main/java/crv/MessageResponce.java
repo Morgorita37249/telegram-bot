@@ -5,7 +5,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MessageResponse {
+public class MessageResponce {
     public interface Command {
         public String execute(Long ChatID, String message);
     }
@@ -84,9 +84,9 @@ public class MessageResponse {
 
     }
 
-    public static MessageResponse processor=new MessageResponse();
+    public static MessageResponce processor=new MessageResponce();
     private final Map<String,Command> commandList=new HashMap<String,Command>();
-    public MessageResponse() { //конструктор процессора команд
+    public MessageResponce() { //конструктор процессора команд
         commandList.put("/start",new StartCommand());
         commandList.put("/nav1",new Nav1Command());
         commandList.put("Waiting for first waypoint",new StoreFirstWayPoint());

@@ -31,7 +31,7 @@ public class BotMM extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         SendMessage response = new SendMessage();
-        response.setText(MessageResponse.ProcessUpdate(update));
+        response.setText(MessageResponce.ProcessUpdate(update));
         response.setChatId(update.getMessage().getChatId());
         try {
             execute(response);
