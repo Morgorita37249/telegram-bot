@@ -70,45 +70,48 @@ public class Graph {
     //	  to:	ID целевой точки
 
     public String getWay(WayPoint from, WayPoint to) {
-        //Используем алгоритм поиска в ширину
-		LinkedList<WayPoint> queue = new LinkedList<>();
-		HashMap<WayPoint, WayPoint> parentMap = new HashMap<>();
-		
-		queue.add(from);
-		parentMap.put(from, null);
-		
-		while (!queue.isEmpty()) {
-        WayPoint current = queue.poll();
+	//Используем алгоритм поиска в ширину
+	LinkedList<WayPoint> queue = new LinkedList<>();
+	HashMap<WayPoint, WayPoint> parentMap = new HashMap<>();
 
-        if (current == to) {
-            return reconstructPath(parentMap, from, to);
-        }
+	queue.add(from);
+	parentMap.put(from, null);
 
-        for (WayPoint neighbor : current.edges) {
-            if (!parentMap.containsKey(neighbor)) {
-                queue.add(neighbor);
-                parentMap.put(neighbor, current);
-            }
-        }
+	while (!queue.isEmpty()) {
+		WayPoint current = queue.poll();
+
+		if (current == to) {
+			return reconstructPath(parentMap, from, to);
+		}
+
+		for (WayPoint neighbor : current.edges) {
+			if (!parentMap.containsKey(neighbor)) {
+				queue.add(neighbor);
+				parentMap.put(neighbor, current);
+			}
+		}
+	}
+		
+	return "Путь не найден";
     }
 	
-	public String reconstructPath(Map<WayPoint, WayPoint> parentMap, WayPoint start, WayPoint end) {
-		LinkedList<WayPoint> path = new LinkedList<>();
-		WayPoint current = end;
+    public String reconstructPath(Map<WayPoint, WayPoint> parentMap, WayPoint start, WayPoint end) {
+	LinkedList<WayPoint> path = new LinkedList<>();
+	WayPoint current = end;
         
-		while (current != null) {
-			path.addFirst(current);
-			current = parentMap.get(current);
-		}
-
-		StringBuilder result = new StringBuilder("Путь: ");
-		for (WayPoint point : path) {
-			result.append(point.name).append(" -> ");
-		}
-		result.delete(result.length() - 4, result.length()); 
-
-		return result.toString();
+	while (current != null) {
+		path.addFirst(current);
+		current = parentMap.get(current);
 	}
+
+	StringBuilder result = new StringBuilder("Путь: ");
+	for (WayPoint point : path) {
+		result.append(point.name).append(" -> ");
+	}
+	result.delete(result.length() - 4, result.length()); 
+
+	return result.toString();
+    }
 
 
     private Graph() {
