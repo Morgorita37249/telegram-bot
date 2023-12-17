@@ -12,11 +12,9 @@ import java.util.Map;
 public class MessageResponce {
 
 
-    public interface Command {
-        public String execute(Long ChatID, String message);
-    }
 
-    public class StartCommand implements Command{
+
+    public class StartCommand implements MessageSenters{
         @Override
         public String execute(Long ChatID, String message) {
             if(!base.UsersData.containsKey(ChatID)){
@@ -26,7 +24,7 @@ public class MessageResponce {
         }
     }
 
-    public class Nav1Command implements Command {
+    public class Nav1Command implements MessageSenters {
         // По команде nav1 - запрашиваем номер аудитории, где находимся, сохраняем в состоянии "firstPoint"
         @Override
         public String execute(Long ChatID, String message) {
@@ -35,7 +33,7 @@ public class MessageResponce {
         }
     }
 
-    public class StoreFirstWayPoint implements Command {
+    public class StoreFirstWayPoint implements MessageSenters {
 
         @Override
         public String execute(Long ChatID, String message) {
@@ -49,7 +47,7 @@ public class MessageResponce {
             return "Теперь напишите, куда хотите попасть";
         }
     }
-    public class StoreLastWayPoint implements Command {
+    public class StoreLastWayPoint implements MessageSenters {
 
         @Override
         public String execute(Long ChatID, String message) {
@@ -81,7 +79,7 @@ public class MessageResponce {
         Message mes;
         long UserID=update.getMessage().getChatId();
         String Message=update.getMessage().getText();
-        Command toExecute=processor.commandList.get(Message);
+        MessageSenters toExecute=processor.commandList.get(Message);
         if(toExecute==null) //команду не нашли, поэтому в зависимости от состояния отрабатываем сообщение
             toExecute=processor.commandList.get(base.getDialogState(UserID));
         if(toExecute==null)
@@ -91,7 +89,7 @@ public class MessageResponce {
     }
 
     public static MessageResponce processor=new MessageResponce();
-    private final Map<String,Command> commandList=new HashMap<String,Command>();
+    private final Map<String,MessageSenters> commandList=new HashMap<String,MessageSenters>();
     public MessageResponce() { //конструктор процессора команд
         commandList.put("/start",new StartCommand());
         commandList.put("/nav1",new Nav1Command());
