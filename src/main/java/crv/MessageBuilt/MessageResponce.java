@@ -1,9 +1,14 @@
 package crv.MessageBuilt;
 
+import crv.Bot_Core.Bot;
 import crv.DataB.DataBase;
+import crv.MessageBuilt.Commands.StartCommand;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.HashMap;
@@ -14,29 +19,14 @@ public class MessageResponce {
 
 
 
-    public class StartCommand implements MessageSenters{
-        @Override
-        public String execute(Long ChatID, String message) {
-            if(!base.UsersData.containsKey(ChatID)){
-                base.newUser(ChatID);
-            } else base.setTag(ChatID,"State","new");
-            return "Hello, let's go!!!!";
-        }
-    }
 
-    public class Nav1Command implements MessageSenters {
-        // По команде nav1 - запрашиваем номер аудитории, где находимся, сохраняем в состоянии "firstPoint"
-        @Override
-        public String execute(Long ChatID, String message) {
-            base.setTag(ChatID,"State","Waiting for first waypoint");
-            return "Сообщите, где находитесь (номер аудитории)";
-        }
-    }
+
+
 
     public class StoreFirstWayPoint implements MessageSenters {
 
         @Override
-        public String execute(Long ChatID, String message) {
+        public void execute(Long ChatID, String message) {
             // к нам пришло сообщение, где мы ждём первый ориентир
             // мы его сейчас должны найти в графе.
             // Если не нашли - ругаемся и ждём снова.
@@ -50,7 +40,7 @@ public class MessageResponce {
     public class StoreLastWayPoint implements MessageSenters {
 
         @Override
-        public String execute(Long ChatID, String message) {
+        public void execute(Long ChatID, String message) {
             // К нам пришло сообщение, где мы ждём конечную точку
             // мы его сейчас должны найти в графе.
             // Если не нашли - ругаемся и ждём снова.
@@ -90,7 +80,8 @@ public class MessageResponce {
 
     public static MessageResponce processor=new MessageResponce();
     private final Map<String,MessageSenters> commandList=new HashMap<String,MessageSenters>();
-    public MessageResponce() { //конструктор процессора команд
+    public MessageResponce() {
+        //конструктор процессора команд
         commandList.put("/start",new StartCommand());
         commandList.put("/nav1",new Nav1Command());
         commandList.put("Waiting for first waypoint",new StoreFirstWayPoint());
