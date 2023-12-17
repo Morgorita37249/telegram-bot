@@ -1,7 +1,6 @@
-package crv;
+package crv.DataB;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 // база чатов, хранит

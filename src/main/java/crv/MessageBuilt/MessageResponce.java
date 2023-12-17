@@ -1,11 +1,17 @@
-package crv;
+package crv.MessageBuilt;
 
+import crv.DataB.DataBase;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MessageResponce {
+
+
     public interface Command {
         public String execute(Long ChatID, String message);
     }
@@ -71,16 +77,16 @@ public class MessageResponce {
 
     // по команде nav2 - запрашиваем номер аудитории, куда надо попасть, сохраняем в состоянии "LastPoint", обращаемся к классу Graph за инструкциями
 
-    public static String ProcessUpdate (Update update) {
+    public static void ProcessUpdate (Update update) {
+        Message mes;
         long UserID=update.getMessage().getChatId();
         String Message=update.getMessage().getText();
-
-        Command toExecute=processor.commandList.get(Message); // Возможны грабли: не тот регистр, лишние пробелы. Учесть
+        Command toExecute=processor.commandList.get(Message);
         if(toExecute==null) //команду не нашли, поэтому в зависимости от состояния отрабатываем сообщение
             toExecute=processor.commandList.get(base.getDialogState(UserID));
         if(toExecute==null)
-            return "Команда не распознана";
-        return toExecute.execute(UserID,Message);
+            //return "Команда не распознана";
+       toExecute.execute(UserID,Message);
 
     }
 
