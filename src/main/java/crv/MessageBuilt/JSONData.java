@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Iterator;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.HashMap;
 public class JSONData{
@@ -24,7 +25,7 @@ public class JSONData{
     }
 
     public static Map<String, String> readJsonData() {
-        Map<String, String> dataMap = new HashMap<>();
+        Map<String, String> dataMap = new LinkedHashMap<>();
 
         try {
             JsonNode jsonData = objectMapper.readTree(new File(filePath));
@@ -52,3 +53,4 @@ public class JSONData{
         }
     }
 }
+
