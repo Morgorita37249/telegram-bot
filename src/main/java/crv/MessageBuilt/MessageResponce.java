@@ -47,7 +47,7 @@ public class MessageResponce {
         MessageSenters toExecute=processor.commandList.get(Message);
         if(toExecute==null) //команду не нашли, поэтому в зависимости от состояния отрабатываем сообщение
             toExecute=processor.commandList.get(base.getDialogState(UserID));
-        if(toExecute==null)
+        //if(toExecute==null)
             //return "Команда не распознана";
        toExecute.execute(UserID,Message);
 

@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class StoreLastWayPoint implements MessageSenters {
 
@@ -26,10 +27,12 @@ public class StoreLastWayPoint implements MessageSenters {
 
         base.setTag(ChatID,"State","new");
         Graph.WayPoint first=Graph.getInstance().getWayPointByID(base.getTag(ChatID,"FirstPoint"));
-        String text_Path=Graph.getInstance().getWay(first,wp);
+        ArrayList<Graph.WayPoint> way=Graph.getInstance().getWay(first,wp);
+        String text_Path=Graph.getInstance().get_StringWay(way);
         send_Message(ChatID,text_Path);
         ImageMaker iMaker = new ImageMaker();
-        iMaker.makeMap(Graph.getInstance().get_Names(), "names.json","Base_Map.png",ChatID);
+
+        iMaker.makeMap(Graph.getInstance().get_Names(way), "names.json","Base_Map.png",ChatID);
         send_Image(ChatID,"C:\\Bot"+ChatID+".jpeg");
     }
 

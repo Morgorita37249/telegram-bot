@@ -3,7 +3,7 @@ package crv.DataB;
 import java.sql.*;
 
 public class SQLiteJDBCDriverConnection {
-    String url="";
+    String url="jdbc:sqlite:C:\\Games\\Database.s3db";
     private Connection connect() {
         Connection conn = null;
         try {
@@ -15,7 +15,7 @@ public class SQLiteJDBCDriverConnection {
     }
     public SQLiteJDBCDriverConnection(){}
     public void createNewTable() {
-        String url = "";
+        String url = "jdbc:sqlite:C:\\Games\\Database.s3db";
 
         String sql = "CREATE TABLE IF NOT EXISTS tags (\n"
                 + " id integer PRIMARY KEY,\n"

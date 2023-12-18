@@ -101,6 +101,14 @@ public class Graph {
         return names;
     }
 
+    public String get_StringWay(ArrayList<WayPoint> wayPoints){
+        String way = "";
+        for (WayPoint wayPoint : wayPoints){
+            way+=wayPoint.name+"->";
+        }
+        return way;
+    }
+
     private Graph() {
 
         Map<String, String> WayPoints = JSONData.readJsonData();

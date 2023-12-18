@@ -1,5 +1,6 @@
 package crv.Bot_Core;
 
+import crv.DataB.SQLiteJDBCDriverConnection;
 import crv.MessageBuilt.MessageResponce;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -27,6 +28,8 @@ public class Bot extends TelegramLongPollingBot {
     private Bot(String token, String name) {
         super(token);
         this.name = name;
+        SQLiteJDBCDriverConnection sqlbase = new SQLiteJDBCDriverConnection();
+        sqlbase.createNewTable();
     }
     @Override
     public String getBotUsername() {
