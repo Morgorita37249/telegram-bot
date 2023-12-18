@@ -50,7 +50,6 @@ public class Graph {
 
     public void newWayPoint(String name) {
         WayPoint wayPoint = new WayPoint(name, "id" + name);
-        registerWayPoint(wayPoint);
     }
 
 
