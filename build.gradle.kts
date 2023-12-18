@@ -15,6 +15,7 @@ dependencies {
     implementation("org.telegram:telegrambots:6.8.0")
     implementation("org.json:json:20201115")
     implementation("com.github.cliftonlabs:json-simple:3.1.0")
+    implementation ('com.fasterxml.jackson.core:jackson-databind:2.13.1')
 }
 
 tasks.test {
