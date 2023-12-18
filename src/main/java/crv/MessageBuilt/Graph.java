@@ -94,7 +94,7 @@ public class Graph {
         throw new IllegalArgumentException("No way between " + from.ID + " и " + to.ID);
     }
 
-    public List<String> get_Names(List<WayPoint> wayPoints) {
+    public List<String> get_Names(ArrayList<WayPoint> wayPoints) {
         List<String> names = new ArrayList<>();
         for (WayPoint wayPoint : wayPoints) {
             names.add(wayPoint.name);
