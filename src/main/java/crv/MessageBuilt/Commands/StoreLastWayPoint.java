@@ -32,7 +32,7 @@ public class StoreLastWayPoint implements MessageSenters {
         send_Message(ChatID,text_Path);
         ImageMaker iMaker = new ImageMaker();
 
-        iMaker.makeMap(Graph.getInstance().get_Names(way), "names.json","Base_Map.png",ChatID);
+        iMaker.makeMap(Graph.getInstance().toStringList(way), "names.json","Base_Map.png",ChatID);
         send_Image(ChatID,"C:\\Bot"+ChatID+".jpeg");
     }
 
