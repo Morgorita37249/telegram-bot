@@ -114,6 +114,7 @@ public class Graph {
         for (WayPoint wayPoint : wayPoints){
             way+=wayPoint.name+"->";
         }
+
         return way;
     }
     // строчка из всех пройденных точек в пути
@@ -164,3 +165,7 @@ public class Graph {
         }
     }
 }
+
+
+
+

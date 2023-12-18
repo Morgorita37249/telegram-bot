@@ -4,12 +4,13 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import crv.Bot_Core.Bot;
+
 import java.io.IOException;
 
 public class BotMM {
 
     public static void main(String[] args) throws TelegramApiException {
+        Graph.getInstance().ReadGraph(); // graph init
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         Secret secret = new Secret();
         var token = secret.token; //need to change for file but for now will be empty and need to fill handy
