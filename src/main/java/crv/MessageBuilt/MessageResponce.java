@@ -58,7 +58,7 @@ public class MessageResponce {
     public MessageResponce() {
         //конструктор процессора команд
         commandList.put("/start",new StartCommand());
-        commandList.put("/nav1",new Nav1Command());
+        commandList.put("/navigation",new Nav1Command());
         commandList.put("Waiting for first waypoint",new StoreFirstWayPoint());
         commandList.put("Waiting for last waypoint",new StoreLastWayPoint());
         // TODO: Добавить команды: Добавить ориентир, Удалить ориентир, Связать ориентиры, Вывести граф целиком.

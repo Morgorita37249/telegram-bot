@@ -1,5 +1,6 @@
 package crv.Bot_Core;
 
+import crv.MessageBuilt.Graph;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -15,7 +16,7 @@ public class BotMM {
         Secret secret = new Secret();
         var token = secret.token; //need to change for file but for now will be empty and need to fill handy
         var name = secret.token; //same as ^
-
+        Graph graph = Graph.getInstance();
         telegramBotsApi.registerBot(Bot.GetInstance(token,name));
     }
 

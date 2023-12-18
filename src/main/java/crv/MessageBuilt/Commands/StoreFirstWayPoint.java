@@ -14,10 +14,10 @@ public class StoreFirstWayPoint implements MessageSenters {
         // мы его сейчас должны найти в графе.
         // Если не нашли - ругаемся и ждём снова.
         Graph.WayPoint wp=Graph.getInstance().getWayPointByName(message);
-        if(wp==null) send_Message(ChatID,"Не нашёл указанного места в списке, повторите");
+        if(wp==null) send_Message(ChatID,"Did not find this place in the list, please repeat");
         base.setTag(ChatID,"FirstPoint",wp.ID); // TODO: переписать класс database, чтобы хранить не только string, но и wayPoint. А в пределе - любой объект.
         base.setTag(ChatID,"State","Waiting for last point");
-        send_Message(ChatID, "Теперь напишите, куда хотите попасть");
+        send_Message(ChatID, "Now write where you want to go");
     }
 
     @Override

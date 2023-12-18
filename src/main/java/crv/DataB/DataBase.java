@@ -29,7 +29,7 @@ public class DataBase {
     // прямое обращение к состоянию диалога (по тегу "State")
     public String getDialogState(Long UserId){
         //return UsersData.get(UserId).get("state"); // TODO: переписать обращение по строке на обращение к константе класса TAGSCCOLLECTION
-        String result = sqlbase.selectTag(UserId,"state");
+        String result = sqlbase.selectTag(UserId,"State");
         if(result=="NotFound"){
             newUser(UserId);
             return "new";
@@ -41,7 +41,7 @@ public class DataBase {
 
     // создание нового чата, создание для него нового дескриптора с состоянием "новый"
     public void newUser(Long UserId){
-        setTag(UserId,"state","new");
+        setTag(UserId,"State","new");
     }
 
     // получение значения тега чата по имени. Переписать на обращение к константе класса tagscollection

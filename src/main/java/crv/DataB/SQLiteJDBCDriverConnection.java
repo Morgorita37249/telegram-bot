@@ -32,7 +32,7 @@ public class SQLiteJDBCDriverConnection {
     }
 
     public void insertTag(Long id, String tag, String value) {
-        String sql = "INSERT INTO tags(id,tag,value) VALUES(?,?,?)";
+        String sql = "INSERT OR REPLACE INTO tags(id,tag,value) VALUES(?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
