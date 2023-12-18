@@ -93,12 +93,12 @@ public class Graph {
         throw new IllegalArgumentException("No way between " + from.ID + " и " + to.ID);
     }
 
-    public List<String> get_Names(ArrayList<WayPoint> wayPoints) {
-        List<String> names = new ArrayList<>();
+    public String get_Names(List<WayPoint> wayPoints) {
+        StringBuilder namesBuilder = new StringBuilder();
         for (WayPoint wayPoint : wayPoints) {
-            names.add(wayPoint.name);
+            namesBuilder.append(wayPoint.name).append(" ");
         }
-        return names;
+        return namesBuilder.toString().trim();
     }
 
     private Graph() {
