@@ -35,8 +35,8 @@ public class Graph {
         wp2.connect(wp1);
     }
 
-
-    private static Graph instance = new Graph();
+    //единственный граф
+    private static final Graph instance = new Graph();
 
     public static Graph getInstance() {
         return instance;
@@ -63,12 +63,13 @@ public class Graph {
         }
         return null;
     }
-
+    //обход графа поиском в ширину, возвращает список вершин от точки до точки
     public ArrayList<WayPoint> getWay(WayPoint from, WayPoint to) throws IllegalArgumentException {
         if (from == null || to == null) {
             throw new IllegalArgumentException("Ошибка: Вершина не существует.");
         }
 
+        HashMap<WayPoint, WayPoint> steps=new HashMap<WayPoint, WayPoint>();
         LinkedList<WayPoint> queue = new LinkedList<>();
         ArrayList<WayPoint> Way = new ArrayList<>();
         Set<String> visited = new HashSet<>();
@@ -83,16 +84,32 @@ public class Graph {
                 if (!visited.contains(neighbor.ID)) {
                     queue.add(neighbor);
                     visited.add(neighbor.ID);
+                    steps.put(neighbor,current);
 
-                    if (neighbor.ID.equals(to.ID)) {
-                        return Way;
+                    if (neighbor.ID.equals(to.ID)) { //по пройденным шагам размотаем путь обратно
+                        ArrayList<WayPoint> trace=new ArrayList<WayPoint>();
+                        WayPoint p=neighbor;
+                        while(p!=null) {
+                            trace.add(p);
+                            p=steps.get(p);
+                        }
+                        Collections.reverse(trace);
+                        return trace;
                     }
                 }
             }
         }
-        throw new IllegalArgumentException("No way between " + from.ID + " и " + to.ID);
+        throw new IllegalArgumentException("No way between " + from.name + " и " + to.name);
     }
 
+    public List<String> toStringList(List<WayPoint> wayPoints) {
+        List<String> result=new ArrayList<String>();
+        for (WayPoint wayPoint : wayPoints) {
+            result.add(wayPoint.name);
+        }
+        return result;
+    }
+    // строчка из всех пройденных точек в пути
     public String get_Names(List<WayPoint> wayPoints) {
         StringBuilder namesBuilder = new StringBuilder();
         for (WayPoint wayPoint : wayPoints) {
@@ -103,32 +120,44 @@ public class Graph {
 
     private Graph() {
 
-        Map<String, String> WayPoints = JSONData.readJsonData();
+    }
+    public void ReadGraph() {
+        try {
+            Map<String, String> WayPoints = JSONData.readJsonData();
 
-        for (Map.Entry<String, String> currentEntry : WayPoints.entrySet()) {
-            String currentKey = currentEntry.getKey();
-            String currentValue = currentEntry.getValue();
-            new WayPoint(currentValue, currentKey);
+            String prev_key="";
+            String prev_value="";
 
+            for (Map.Entry<String, String> currentEntry : WayPoints.entrySet()) {
+                String currentKey = currentEntry.getKey();
+                String currentValue = currentEntry.getValue();
+                new WayPoint(currentValue, currentKey);
 
-            for (Map.Entry<String, String> entry : WayPoints.entrySet()) {
-                String nextKey = entry.getKey();
-                String nextValue = entry.getValue();
-                new WayPoint(nextValue, nextKey);
+                if(prev_key.equals("")) {
+                } else {
 
-                if (currentKey.contains("id5") && nextKey.contains("id5") ||
-                        currentKey.contains("id6") && nextKey.contains("id6") ||
-                        currentKey.equals("id5L1") && nextKey.equals("id6L1") ||
-                        currentKey.equals("id5L2") && nextKey.equals("id6L2") ||
-                        currentKey.equals("id5L3") && nextKey.equals("id6L3") ||
-                        currentKey.equals("id5L") && nextKey.equals("id6L")) {
+                    if (currentKey.contains("id5") && prev_key.contains("id5") ||
+                            currentKey.contains("id6") && prev_key.contains("id6")) {
 
-                    connectWayPoints(currentKey, nextKey);
+                        connectWayPoints(currentKey, prev_key);
+                    }
                 }
+                prev_key=currentKey;
+                prev_value=currentValue;
             }
+            connectWayPoints("idL5","idL6");
+            connectWayPoints("id5L1","id6L1");
+            connectWayPoints("id5L2","id6L2");
+            connectWayPoints("id5L3","id6L3");
+            connectWayPoints("id517","id540");
+            connectWayPoints("id640","id625");
+
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
+
 
 
 
