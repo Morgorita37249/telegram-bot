@@ -17,9 +17,6 @@ public class JSONData{
             if (!existingJson.has(newKey)) {
                 ((com.fasterxml.jackson.databind.node.ObjectNode) existingJson).put(newKey, newValue);
                 objectMapper.writeValue(new File(filePath), existingJson);
-                System.out.println("Пара " + newKey + ": " + newValue + " успешно добавлена.");
-            } else {
-                System.out.println( newValue + "место уже существует");
             }
         } catch (IOException e) {
             e.printStackTrace();
