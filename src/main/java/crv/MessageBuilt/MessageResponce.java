@@ -2,7 +2,10 @@ package crv.MessageBuilt;
 
 import crv.Bot_Core.Bot;
 import crv.DataB.DataBase;
+import crv.MessageBuilt.Commands.Nav1Command;
 import crv.MessageBuilt.Commands.StartCommand;
+import crv.MessageBuilt.Commands.StoreFirstWayPoint;
+import crv.MessageBuilt.Commands.StoreLastWayPoint;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -23,36 +26,8 @@ public class MessageResponce {
 
 
 
-    public class StoreFirstWayPoint implements MessageSenters {
 
-        @Override
-        public void execute(Long ChatID, String message) {
-            // к нам пришло сообщение, где мы ждём первый ориентир
-            // мы его сейчас должны найти в графе.
-            // Если не нашли - ругаемся и ждём снова.
-            Graph.WayPoint wp=Graph.getInstance().getWayPointByName(message);
-            if(wp==null) return "Не нашёл указанного места в списке, повторите";
-            base.setTag(ChatID,"FirstPoint",wp.ID); // TODO: переписать класс database, чтобы хранить не только string, но и wayPoint. А в пределе - любой объект.
-            base.setTag(ChatID,"State","Waiting for last point");
-            return "Теперь напишите, куда хотите попасть";
-        }
-    }
-    public class StoreLastWayPoint implements MessageSenters {
 
-        @Override
-        public void execute(Long ChatID, String message) {
-            // К нам пришло сообщение, где мы ждём конечную точку
-            // мы его сейчас должны найти в графе.
-            // Если не нашли - ругаемся и ждём снова.
-            Graph.WayPoint wp=Graph.getInstance().getWayPointByName(message);
-            if(wp==null) return "Не нашёл указанного места в списке, повторите";
-            base.setTag(ChatID,"LastPoint",wp.ID); // TODO: переписать класс database, чтобы хранить не только string, но и wayPoint. А в пределе - любой объект.
-
-            base.setTag(ChatID,"State","new");
-            Graph.WayPoint first=Graph.getInstance().getWayPointByID(base.getTag(ChatID,"FirstPoint"));
-            return Graph.getInstance().getWay(first,wp);
-        }
-    }
 
 
     //private String FinalMessage="Oops,something wrong"; //НЕЛЬЗЯ использовать внешние переменные. Если идёт обработка, то результат нужно вернут!!!

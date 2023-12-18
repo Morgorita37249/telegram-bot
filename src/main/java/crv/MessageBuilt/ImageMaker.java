@@ -1,5 +1,8 @@
 package crv.MessageBuilt;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -8,22 +11,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import java.io.FileReader;
 
-public class ImageProcessor {
+
+public class ImageMaker {
     private BufferedImage image;
+    private List<Point> points;
 
-    public void readImage(String path) {
+    public void makeMap(List<String> names, String names2Points_File, String image_File,Long UserID) {
+        readImage(image_File);
+        readPoints(names2Points_File,names);
+        drawArrows(points);
+        safe_Image("C:\\Bot"+UserID+".jpeg","jpg" );
+
+    }
+
+    public ImageMaker(){}
+    private void readPoints(String file, List<String> names){
+
+    }
+
+    private void readImage(String path) {
         try {
             image = ImageIO.read(new File(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public List<Point> StringToList(String points){
-        List<Point> lPoints = new ArrayList<>();
-
-    }
-    public void drawArrows(List<Point> points) {
+    private void drawArrows(List<Point> points) {
         Graphics2D g2d = image.createGraphics();
         g2d.setColor(Color.RED);
         g2d.setStroke(new BasicStroke(3));
@@ -53,11 +68,14 @@ public class ImageProcessor {
                 new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
     }
 
-    public void saveImage(String path) {
+    private void safe_Image(String filename,String name){
+        File output = new File(filename);
         try {
-            ImageIO.write(image, "png", new File(path));
+            ImageIO.write(image, name, output);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Ошибка при создании изображения: " + e.getMessage());
         }
+
     }
+
 }

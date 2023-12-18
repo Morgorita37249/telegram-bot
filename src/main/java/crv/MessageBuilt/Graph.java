@@ -109,7 +109,10 @@ public class Graph {
 
 	return result.toString();
     }
-
+    public List<String> get_Names(){
+        List<String> names = new ArrayList<>();
+        return  names;
+    }
 
     private Graph() {
         //readMap();

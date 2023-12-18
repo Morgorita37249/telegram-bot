@@ -13,7 +13,7 @@ public class SQLiteJDBCDriverConnection {
         }
         return conn;
     }
-
+    public SQLiteJDBCDriverConnection(){}
     public void createNewTable() {
         String url = "";
 
@@ -54,8 +54,15 @@ public class SQLiteJDBCDriverConnection {
             pstmt.setLong(1,id);
             pstmt.setString(2,tag);
             ResultSet rs  = pstmt.executeQuery();
-            value = rs.getString("value");
+            if (rs.next()) {
+                value = rs.getString("value");
+            } else {
+                throw new SQLException("NotFound");
+            }
         } catch (SQLException e) {
+            if (e.getMessage().equals("NotFound")) {
+                return "NotFound";
+            }
             System.out.println(e.getMessage());
         }
         return value;
