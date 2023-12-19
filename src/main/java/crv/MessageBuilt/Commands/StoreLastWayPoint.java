@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class StoreLastWayPoint implements MessageSenters {
 
@@ -21,16 +22,23 @@ public class StoreLastWayPoint implements MessageSenters {
         // мы его сейчас должны найти в графе.
         // Если не нашли - ругаемся и ждём снова.
         Graph.WayPoint wp=Graph.getInstance().getWayPointByName(message);
-        if(wp==null) send_Message(ChatID, "Не нашёл указанного места в списке, повторите");
-        base.setTag(ChatID,"LastPoint",wp.ID); // TODO: переписать класс database, чтобы хранить не только string, но и wayPoint. А в пределе - любой объект.
+        if(wp==null) {
+            send_Message(ChatID, "I dont know such place, repeat plz");
+        } else {
+            base.setTag(ChatID, "LastPoint", wp.ID); // TODO: переписать класс database, чтобы хранить не только string, но и wayPoint. А в пределе - любой объект.
 
-        base.setTag(ChatID,"State","new");
-        Graph.WayPoint first=Graph.getInstance().getWayPointByID(base.getTag(ChatID,"FirstPoint"));
-        String text_Path=Graph.getInstance().getWay(first,wp);
-        send_Message(ChatID,text_Path);
-        ImageMaker iMaker = new ImageMaker();
-        iMaker.makeMap(Graph.getInstance().get_Names(), "names.json","Base_Map.png",ChatID);
-        send_Image(ChatID,"C:\\Bot"+ChatID+".jpeg");
+            base.setTag(ChatID, "State", "new");
+            Graph.WayPoint first = Graph.getInstance().getWayPointByID(base.getTag(ChatID, "FirstPoint"));
+            try {
+                ArrayList<Graph.WayPoint> Path = Graph.getInstance().getWay(first, wp);
+                send_Message(ChatID, Graph.getInstance().get_Names(Path));
+                ImageMaker iMaker = new ImageMaker();
+                iMaker.makeMap(Graph.getInstance().toStringList(Path), "names.json", "Base_Map.png", ChatID);
+                send_Image(ChatID, "C:\\Bot\\bot" + ChatID + ".jpeg");
+            } catch(Exception e) {
+                send_Message(ChatID,e.getMessage());
+            }
+        }
     }
 
     @Override
@@ -38,6 +46,11 @@ public class StoreLastWayPoint implements MessageSenters {
         SendMessage sendText = new SendMessage();
         sendText.setText(message);
         sendText.setChatId(ChatID);
+        try {
+            telegramBot.execute(sendText);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void send_Image(Long ChatID, String imagefile){
@@ -52,3 +65,4 @@ public class StoreLastWayPoint implements MessageSenters {
         }
     }
 }
+
