@@ -1,21 +1,16 @@
 package crv.MessageBuilt;
 
-import crv.Bot_Core.Bot;
 import crv.DataB.DataBase;
-import crv.MessageBuilt.Commands.Nav1Command;
-import crv.MessageBuilt.Commands.StartCommand;
-import crv.MessageBuilt.Commands.StoreFirstWayPoint;
-import crv.MessageBuilt.Commands.StoreLastWayPoint;
+import crv.MessageBuilt.Commands.*;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.HashMap;
 import java.util.Map;
+
+import static crv.MessageBuilt.MessageSenters.telegramBot;
 
 public class MessageResponce {
 
@@ -40,6 +35,17 @@ public class MessageResponce {
 
     // по команде nav2 - запрашиваем номер аудитории, куда надо попасть, сохраняем в состоянии "LastPoint", обращаемся к классу Graph за инструкциями
 
+    public static void send_Message(Long ChatID, String message) {
+        SendMessage sendText = new SendMessage();
+        sendText.setChatId(ChatID);
+        sendText.setText(message);
+        try {
+            telegramBot.execute(sendText);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void ProcessUpdate (Update update) {
         Message mes;
         long UserID=update.getMessage().getChatId();
@@ -47,7 +53,7 @@ public class MessageResponce {
         MessageSenters toExecute=processor.commandList.get(Message);
         if(toExecute==null) //команду не нашли, поэтому в зависимости от состояния отрабатываем сообщение
             toExecute=processor.commandList.get(base.getDialogState(UserID));
-        if(toExecute==null)
+        if(toExecute==null) send_Message(UserID,"Command not recognized");
             //return "Команда не распознана";
        toExecute.execute(UserID,Message);
 
@@ -57,8 +63,9 @@ public class MessageResponce {
     private final Map<String,MessageSenters> commandList=new HashMap<String,MessageSenters>();
     public MessageResponce() {
         //конструктор процессора команд
-        commandList.put("/start",new StartCommand());
+        commandList.put("/start",new Nav1Command());
         commandList.put("/nav1",new Nav1Command());
+        commandList.put("/status",new StatusCommand());
         commandList.put("Waiting for first waypoint",new StoreFirstWayPoint());
         commandList.put("Waiting for last waypoint",new StoreLastWayPoint());
         // TODO: Добавить команды: Добавить ориентир, Удалить ориентир, Связать ориентиры, Вывести граф целиком.
