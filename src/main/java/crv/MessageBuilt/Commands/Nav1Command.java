@@ -13,7 +13,7 @@ public class Nav1Command implements MessageSenters {
         base.setTag(ChatID,"State","Waiting for first waypoint");
 
         // return "Сообщите, где находитесь (номер аудитории)";
-        send_Message(ChatID,"Сообщите, где находитесь (номер аудитории)");
+        send_Message(ChatID,"Tell me where you are (room number)");
     }
     @Override
     public void send_Message(Long ChatID, String message) {
