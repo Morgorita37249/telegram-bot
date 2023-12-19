@@ -1,5 +1,6 @@
 package crv.Bot_Core;
 
+import crv.MessageBuilt.Graph;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
