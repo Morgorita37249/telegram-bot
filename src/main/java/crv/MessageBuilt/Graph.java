@@ -112,9 +112,15 @@ public class Graph {
     // строчка из всех пройденных точек в пути
     public String get_Names(List<WayPoint> wayPoints) {
         StringBuilder namesBuilder = new StringBuilder();
-        for (WayPoint wayPoint : wayPoints) {
-            namesBuilder.append(wayPoint.name).append(" ");
+        int size = wayPoints.size();
+
+        for (int i = 0; i < size; i++) {
+            namesBuilder.append(wayPoints.get(i).name);
+            if (i < size - 1) {
+                namesBuilder.append(" -> ");
+            }
         }
+
         return namesBuilder.toString().trim();
     }
 
