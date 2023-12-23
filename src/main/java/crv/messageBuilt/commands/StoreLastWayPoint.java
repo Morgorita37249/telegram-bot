@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class StoreLastWayPoint implements MessageSenters {
@@ -29,8 +30,8 @@ public class StoreLastWayPoint implements MessageSenters {
                 ArrayList<Graph.WayPoint> Path = Graph.getInstance().getWay(first, wp);
                 send_Message(ChatID, Graph.getInstance().get_Names(Path));
                 ImageMaker iMaker = new ImageMaker();
-                iMaker.makeMap(Graph.getInstance().toStringList(Path), ChatID);
-                send_Image(ChatID, "C:\\Bot\\bot" + ChatID + ".jpeg");
+                File outputImage=iMaker.makeMap(Graph.getInstance().toStringList(Path), ChatID);
+                send_Image(ChatID, outputImage);
             } catch(Exception e) {
                 send_Message(ChatID,e.getMessage());
             }
@@ -49,11 +50,11 @@ public class StoreLastWayPoint implements MessageSenters {
         }
     }
 
-    public void send_Image(Long ChatID, String imagefile){
+    public void send_Image(Long ChatID, File output){
         SendPhoto sendImage = new SendPhoto();
         sendImage.setChatId(ChatID);
 
-        sendImage.setPhoto(new InputFile(imagefile));
+        sendImage.setPhoto(new InputFile(output));
         try {
             telegramBot.execute(sendImage);
         } catch (TelegramApiException e) {

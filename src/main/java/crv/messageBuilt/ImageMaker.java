@@ -23,12 +23,18 @@ public class ImageMaker {
     private final Map<String,Point> pointsMap = new HashMap<>();
     private static final String filePath = "src/main/resources/CoordsMap.json";
     private static final String imagePath = "src/main/resources/карта1.jpg";
-    public void makeMap(List<String> names,Long UserID) {
+    public File makeMap(List<String> names,Long UserID) {
         readImage(imagePath);
         readPoints(names);
         drawArrows(points);
-        safe_Image("C:\\Bot"+UserID+".jpeg","jpg" );
 
+        File outputImage = new File("output.png");
+        try {
+            ImageIO.write(image, "png", outputImage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return outputImage;
     }
 
     public ImageMaker(){}
