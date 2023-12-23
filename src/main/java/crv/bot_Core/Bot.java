@@ -1,6 +1,6 @@
-package crv.Bot_Core;
+package crv.bot_Core;
 
-import crv.MessageBuilt.MessageResponce;
+import crv.messageBuilt.MessageResponce;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 

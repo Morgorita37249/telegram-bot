@@ -1,10 +1,9 @@
-package crv.MessageBuilt.Commands;
+package crv.messageBuilt.commands;
 
-import crv.MessageBuilt.Graph;
-import crv.MessageBuilt.MessageSenters;
+import crv.messageBuilt.Graph;
+import crv.messageBuilt.MessageSenters;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.generics.TelegramBot;
 
 public class StoreFirstWayPoint implements MessageSenters {
 

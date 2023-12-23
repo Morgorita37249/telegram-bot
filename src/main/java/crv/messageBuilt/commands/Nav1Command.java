@@ -1,21 +1,19 @@
-package crv.MessageBuilt.Commands;
+package crv.messageBuilt.commands;
 
-import crv.DataB.DataBase;
-import crv.MessageBuilt.MessageSenters;
+import crv.messageBuilt.MessageSenters;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class StatusCommand implements MessageSenters {
+public class Nav1Command implements MessageSenters {
 
 
     // По команде nav1 - запрашиваем номер аудитории, где находимся, сохраняем в состоянии "firstPoint"
     @Override
     public void execute(Long ChatID, String message) {
-        DataBase.GetInstance().newUser(ChatID);
+        base.setTag(ChatID,"State","Waiting for first waypoint");
+
         // return "Сообщите, где находитесь (номер аудитории)";
-        //send_Message(ChatID,"Сообщите, где находитесь (номер аудитории)");
-        String state= base.getDialogState(ChatID);
-        send_Message(ChatID,"I'm in state: "+state);
+        send_Message(ChatID,"Tell me where you are (room number)");
     }
     @Override
     public void send_Message(Long ChatID, String message) {

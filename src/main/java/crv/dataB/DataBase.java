@@ -1,4 +1,4 @@
-package crv.DataB;
+package crv.dataB;
 
 import java.util.HashMap;
 import java.util.Map;

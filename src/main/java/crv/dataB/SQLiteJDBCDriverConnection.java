@@ -1,9 +1,9 @@
-package crv.DataB;
+package crv.dataB;
 
 import java.sql.*;
 
 public class SQLiteJDBCDriverConnection {
-    String url="jdbc:sqlite:d:\\sqlite\\botdb.db";
+    String url="jdbc:sqlite:C:\\Games\\Database.s3db";
     private Connection connect() {
         Connection conn = null;
         try {
@@ -15,7 +15,7 @@ public class SQLiteJDBCDriverConnection {
     }
     public SQLiteJDBCDriverConnection(){}
     public void createNewTable() {
-        String url = "jdbc:sqlite:d:\\sqlite\\botdb.db";
+        String url = "jdbc:sqlite:C:\\Games\\Database.s3db";
 
         String sql = "CREATE TABLE IF NOT EXISTS tags (\n " +
                 "id integer NOT NULL," +

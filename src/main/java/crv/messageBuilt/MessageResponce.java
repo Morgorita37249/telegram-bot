@@ -1,7 +1,7 @@
-package crv.MessageBuilt;
+package crv.messageBuilt;
 
-import crv.DataB.DataBase;
-import crv.MessageBuilt.Commands.*;
+import crv.dataB.DataBase;
+import crv.messageBuilt.commands.*;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -10,7 +10,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static crv.MessageBuilt.MessageSenters.telegramBot;
+import static crv.messageBuilt.MessageSenters.telegramBot;
 
 public class MessageResponce {
 
@@ -63,7 +63,7 @@ public class MessageResponce {
     private final Map<String,MessageSenters> commandList=new HashMap<String,MessageSenters>();
     public MessageResponce() {
         //конструктор процессора команд
-        commandList.put("/start",new Nav1Command());
+        commandList.put("/start",new StartCommand());
         commandList.put("/nav1",new Nav1Command());
         commandList.put("/status",new StatusCommand());
         commandList.put("Waiting for first waypoint",new StoreFirstWayPoint());

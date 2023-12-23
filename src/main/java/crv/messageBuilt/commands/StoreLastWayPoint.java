@@ -1,17 +1,13 @@
-package crv.MessageBuilt.Commands;
+package crv.messageBuilt.commands;
 
-import crv.MessageBuilt.Graph;
-import crv.MessageBuilt.ImageMaker;
-import crv.MessageBuilt.MessageSenters;
+import crv.messageBuilt.Graph;
+import crv.messageBuilt.ImageMaker;
+import crv.messageBuilt.MessageSenters;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class StoreLastWayPoint implements MessageSenters {
@@ -33,7 +29,7 @@ public class StoreLastWayPoint implements MessageSenters {
                 ArrayList<Graph.WayPoint> Path = Graph.getInstance().getWay(first, wp);
                 send_Message(ChatID, Graph.getInstance().get_Names(Path));
                 ImageMaker iMaker = new ImageMaker();
-                iMaker.makeMap(Graph.getInstance().toStringList(Path), "names.json", "Base_Map.png", ChatID);
+                iMaker.makeMap(Graph.getInstance().toStringList(Path), ChatID);
                 send_Image(ChatID, "C:\\Bot\\bot" + ChatID + ".jpeg");
             } catch(Exception e) {
                 send_Message(ChatID,e.getMessage());

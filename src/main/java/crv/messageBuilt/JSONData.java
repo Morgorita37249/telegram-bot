@@ -1,4 +1,4 @@
-package crv.MessageBuilt;
+package crv.messageBuilt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.HashMap;
+
 public class JSONData{
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final String filePath = "src/main/resources/classes.json";

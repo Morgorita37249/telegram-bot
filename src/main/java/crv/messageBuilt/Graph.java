@@ -1,7 +1,6 @@
-package crv.MessageBuilt;
+package crv.messageBuilt;
 
 import java.util.*;
-import java.util.Iterator;
 
 
 public class Graph {

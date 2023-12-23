@@ -1,9 +1,7 @@
-package crv.MessageBuilt;
+package crv.messageBuilt;
 
-import crv.Bot_Core.Bot;
-import crv.DataB.DataBase;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import crv.bot_Core.Bot;
+import crv.dataB.DataBase;
 
 public interface MessageSenters {
 
